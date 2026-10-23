@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>DualHome — Habitar juntos</title>
+    <meta name="description" content="DualHome diseña mobiliario y espacios para hogares donde conviven personas y mascotas. Un espacio pensado para dos." />
+    <meta name="theme-color" content="#e6e1dc" />
+    <link rel="icon" href="/assets/logo.webp" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Loader -->
+    <div class="loader" data-loader>
+      <div class="loader__inner">
+        <img class="loader__logo" src="/assets/logo.webp" alt="" />
+        <div class="loader__bar"><span data-loader-bar></span></div>
+        <p class="loader__count"><span data-loader-count>0</span>%</p>
+      </div>
+    </div>
+
+    <canvas class="webgl" data-webgl aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- Nav -->
+    <header class="nav" data-nav>
+      <a href="#inicio" class="nav__brand" aria-label="DualHome, inicio">
+        <img src="/assets/logo.webp" alt="DualHome" />
+      </a>
+      <nav class="nav__links" aria-label="Principal">
+        <a href="#producto">Mobiliario</a>
+        <a href="#materiales">Materiales</a>
+        <a href="#investigacion">Investigación</a>
+        <a href="#servicios">Servicios</a>
+      </nav>
+      <a href="#contacto" class="btn btn--small nav__cta">Contacto</a>
+      <button class="nav__burger" data-burger aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
+    </header>
+    <div class="menu" data-menu>
+      <nav>
+        <a href="#producto" data-menu-link>Mobiliario</a>
+        <a href="#materiales" data-menu-link>Materiales</a>
+        <a href="#investigacion" data-menu-link>Investigación</a>
+        <a href="#servicios" data-menu-link>Servicios</a>
+        <a href="#contacto" data-menu-link>Contacto</a>
+      </nav>
+      <p class="menu__foot">Habitar juntos · Medellín</p>
+    </div>
+
+    <main data-main>
+      <!-- HERO -->
+      <section class="hero" id="inicio">
+        <div class="hero__blob" aria-hidden="true"></div>
+        <div class="hero__stage" data-anchor="hero" data-drag-zone></div>
+        <div class="hero__copy">
+          <p class="eyebrow" data-hero-eyebrow>DualHome · Mobiliario para convivir</p>
+          <h1 class="hero__title" data-hero-title>Habitar<br /><em>juntos.</em></h1>
+          <p class="hero__lead" data-hero-lead>Mobiliario y espacios pensados desde el inicio para ti y para tu mascota. Sin camas sueltas, sin jaulas a la vista: un mismo hogar, dos habitantes.</p>
+          <div class="hero__actions" data-hero-actions>
+            <a href="#producto" class="btn">Conocer nuestros productos</a>
+            <a href="#contacto" class="link-arrow">Escríbenos</a>
+          </div>
+        </div>
+        <p class="hero__script" data-hero-script>Un espacio<br />pensado<br />para dos.</p>
+        <div class="hero__scroll" aria-hidden="true"><span>Desliza</span><i></i></div>
+      </section>
+
+      <!-- MANIFIESTO -->
+      <section class="manifesto">
+        <figure class="manifesto__dog manifesto__dog--a"><img data-gl src="/assets/dog-latte.webp" alt="Retrato al óleo de un shih tzu sosteniendo una taza de café" /></figure>
+        <div class="manifesto__text">
+          <p class="eyebrow">La idea</p>
+          <h2 data-split>Nuestras mascotas no simplemente viven en nuestra casa. <em>También la habitan.</em></h2>
+          <p class="manifesto__body" data-fade>La mayoría del mobiliario se diseña solo para personas. La mascota queda fuera de la planeación del espacio y aparecen las soluciones improvisadas: la cama suelta en la esquina, la jaula visible, el sofá rasguñado. DualHome parte de la pregunta contraria.</p>
+        </div>
+        <figure class="manifesto__dog manifesto__dog--b"><img data-gl src="/assets/dog-beret.webp" alt="Retrato al óleo de un perro con boina azul y una taza" /></figure>
+      </section>
+
+      <!-- DATO -->
+      <section class="data">
+        <div class="data__head">
+          <p class="eyebrow">El contexto</p>
+          <h2 data-split>En Colombia, los hogares con mascotas pasaron del <em>38&nbsp;%</em> al <em>57&nbsp;%</em>.</h2>
+        </div>
+        <div class="data__viz">
+          <div class="data__grid" data-homes aria-hidden="true"></div>
+          <div class="data__counter">
+            <span class="data__num"><span data-count="57">0</span><small>%</small></span>
+            <span class="data__years"><span>2011 · 38 %</span><span>2024 · 57 %</span></span>
+          </div>
+        </div>
+        <p class="data__cite" data-fade>Cifras y Conceptos, Universidad de los Andes e Instituto Humboldt, citado en Corte Constitucional de Colombia, Sentencia C-408 de 2024.</p>
+        <p class="data__note" data-fade>Que una mascota haga parte de la vida diaria no significa que sus necesidades se hayan tenido en cuenta al diseñar la casa.</p>
+      </section>
+
+      <!-- MOBILIARIO (historia 3D) -->
+      <section class="product" id="producto">
+        <div class="product__sticky">
+          <div class="product__stage" data-anchor="product" data-drag-zone></div>
+          <div class="product__steps">
+            <article class="pstep" data-pstep="0">
+              <p class="eyebrow">Mobiliario para convivir</p>
+              <h2>Un mueble, <em>dos habitantes.</em></h2>
+              <p>A primera vista es un mueble más de la sala: tapizado, base de madera, buenas proporciones. Así debe verse.</p>
+            </article>
+            <article class="pstep" data-pstep="1">
+              <p class="eyebrow">Para ti</p>
+              <h3>Arriba, tu lugar.</h3>
+              <p>Superficies firmes y textiles agradables al tacto, a la altura de tu vida diaria.</p>
+            </article>
+            <article class="pstep" data-pstep="2">
+              <p class="eyebrow">Para tu mascota</p>
+              <h3>El espacio también está pensado para él.</h3>
+              <p>Al rodearlo aparece su refugio: protegido, a su escala y con cama propia. Los refugios y la posibilidad de elegir hacen parte de su bienestar.</p>
+            </article>
+            <article class="pstep" data-pstep="3">
+              <p class="eyebrow">Hecho para durar</p>
+              <h3>Se separa, se repara.</h3>
+              <p>Nuestras piezas se desmontan: cada parte se puede reparar o reemplazar sin desechar el mueble completo.</p>
+            </article>
+          </div>
+          <div class="product__progress" aria-hidden="true"><span data-product-bar></span></div>
+        </div>
+      </section>
+
+      <!-- MATERIALES -->
+      <section class="config" id="materiales">
+        <div class="config__stage" data-anchor="config" data-drag-zone></div>
+        <div class="config__panel">
+          <p class="eyebrow">Muestrario sensorial</p>
+          <h2 data-split>Elige cómo se <em>siente.</em></h2>
+          <p class="config__lead" data-fade>Maderas certificadas y textiles de origen responsable. Fabricamos bajo pedido con talleres de carpintería y tapicería de Medellín.</p>
+
+          <fieldset class="swatches" data-fade>
+            <legend>Textil <span data-fabric-name>Lino arena</span></legend>
+            <div class="swatches__row" role="radiogroup" aria-label="Textil">
+              <button class="swatch is-active" role="radio" aria-checked="true" data-fabric="#cbbfa8" data-name="Lino arena" style="--c:#cbbfa8"><span class="sr">Lino arena</span></button>
+              <button class="swatch" role="radio" aria-checked="false" data-fabric="#e6dfd2" data-name="Bouclé crema" style="--c:#e6dfd2"><span class="sr">Bouclé crema</span></button>
+              <button class="swatch" role="radio" aria-checked="false" data-fabric="#a85a3a" data-name="Pana terracota" style="--c:#a85a3a"><span class="sr">Pana terracota</span></button>
+              <button class="swatch" role="radio" aria-checked="false" data-fabric="#5f6a4a" data-name="Chenille oliva" style="--c:#5f6a4a"><span class="sr">Chenille oliva</span></button>
+              <button class="swatch" role="radio" aria-checked="false" data-fabric="#7f948a" data-name="Lino salvia" style="--c:#7f948a"><span class="sr">Lino salvia</span></button>
+            </div>
+          </fieldset>
+          <fieldset class="swatches" data-fade>
+            <legend>Madera <span data-wood-name>Roble claro</span></legend>
+            <div class="swatches__row" role="radiogroup" aria-label="Madera">
+              <button class="swatch swatch--wood is-active" role="radio" aria-checked="true" data-wood="#a87a4c" data-name="Roble claro" style="--c:#b88a5a"><span class="sr">Roble claro</span></button>
+              <button class="swatch swatch--wood" role="radio" aria-checked="false" data-wood="#7a5134" data-name="Nogal" style="--c:#7a5134"><span class="sr">Nogal</span></button>
+              <button class="swatch swatch--wood" role="radio" aria-checked="false" data-wood="#d2b48c" data-name="Fresno natural" style="--c:#d2b48c"><span class="sr">Fresno natural</span></button>
+            </div>
+          </fieldset>
+          <div class="config__toggles" data-fade>
+            <button class="chip" data-explode aria-pressed="false">Ver despiece</button>
+            <button class="chip" data-glow aria-pressed="false">Encender refugio</button>
+          </div>
+          <ul class="config__facts" data-fade>
+            <li><strong>Producción</strong> bajo pedido, sin excedentes</li>
+            <li><strong>Maderas</strong> certificadas</li>
+            <li><strong>Textiles</strong> de origen responsable</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- PILARES -->
+      <section class="pillars">
+        <div class="pillars__head">
+          <p class="eyebrow">Los cuatro pilares</p>
+          <h2 data-split>Un mueble para usar, <em>no solo para mirar.</em></h2>
+        </div>
+        <div class="pillars__grid">
+          <article class="pillar">
+            <figure><img data-gl src="/assets/dog-poodle.webp" alt="Retrato al óleo de un poodle con suéter" /></figure>
+            <h3>Sentir</h3>
+            <p>Texturas, acabados y materiales que transmiten calidez y hogar.</p>
+          </article>
+          <article class="pillar">
+            <figure><img data-gl src="/assets/dog-acdc.webp" alt="Retrato al óleo de un perro pequeño con camiseta de banda" /></figure>
+            <h3>Descubrir</h3>
+            <p>Cada decisión de diseño responde a la persona y a su mascota a la vez.</p>
+          </article>
+          <article class="pillar">
+            <figure><img data-gl src="/assets/dog-plaid.webp" alt="Retrato al óleo de un beagle con camisa a cuadros" /></figure>
+            <h3>Conectar</h3>
+            <p>Activar el vínculo: los dos hacen parte del mismo hogar.</p>
+          </article>
+          <article class="pillar">
+            <figure><img data-gl src="/assets/dog-plane.webp" alt="Retrato al óleo de un perro con chaqueta roja y un avión de papel" /></figure>
+            <h3>Interactuar</h3>
+            <p>Acercarse, tocar, abrir y transformar el mueble para entenderlo.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- INVESTIGACIÓN -->
+      <section class="research" id="investigacion">
+        <div class="research__intro">
+          <p class="eyebrow">Diseño basado en comportamiento</p>
+          <h2 data-split>Primero observamos. <em>Después diseñamos.</em></h2>
+          <div class="research__side" data-fade>
+            <p>DualHome nace de una investigación en Diseño y Gestión de Espacios sobre viviendas de Medellín donde las personas conviven con perros y gatos. Partimos de una pregunta:</p>
+            <p class="research__q">¿Cómo puede el comportamiento de las personas y sus mascotas orientar el diseño de los espacios que comparten?</p>
+          </div>
+        </div>
+        <div class="research__grid">
+          <article class="rcard" data-fade>
+            <h3>Distribución</h3>
+            <p>Dónde está cada cosa: comida, agua, descanso. La distribución puede facilitar o limitar la rutina de todos.</p>
+          </article>
+          <article class="rcard" data-fade>
+            <h3>Recorridos</h3>
+            <p>Las circulaciones de la casa también son las de ellos: pasillos, umbrales y puntos de paso.</p>
+          </article>
+          <article class="rcard" data-fade>
+            <h3>Accesos</h3>
+            <p>Alturas y aberturas a la escala de la mascota, sin obligarla a adaptarse a un mundo hecho solo para personas.</p>
+          </article>
+          <article class="rcard" data-fade>
+            <h3>Superficies</h3>
+            <p>Materiales que resisten uñas y pelo, y que se sienten bien para las personas y sus mascotas.</p>
+          </article>
+          <article class="rcard" data-fade>
+            <h3>Descanso</h3>
+            <p>Refugios con posibilidad de elección: un lugar propio, protegido y cerca de su gente.</p>
+          </article>
+          <article class="rcard rcard--statement" data-fade>
+            <p>Lo que funciona para las personas no siempre funciona para sus mascotas. Por eso diseñamos para las dos a la vez.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- IMPACTO -->
+      <section class="impact">
+        <h2 class="impact__title" data-split>Triple <em>impacto</em></h2>
+        <div class="impact__cols">
+          <article class="impact__col" data-fade>
+            <span class="impact__tag">Económico</span>
+            <h3>Producción bajo pedido</h3>
+            <p>Sin inventario sin vender. Talleres locales de carpintería y tapicería como proveedores fijos.</p>
+          </article>
+          <article class="impact__col" data-fade>
+            <span class="impact__tag">Social</span>
+            <h3>Diseño con etólogos y veterinarias</h3>
+            <p>La mascota reconocida como habitante activo del espacio, y trabajo para artesanos de la ciudad.</p>
+          </article>
+          <article class="impact__col" data-fade>
+            <span class="impact__tag">Ambiental</span>
+            <h3>Maderas certificadas, menos residuo</h3>
+            <p>Textiles de origen responsable y piezas desmontables que se reparan en vez de reemplazarse.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- SERVICIOS -->
+      <section class="services" id="servicios">
+        <div class="services__head">
+          <p class="eyebrow">Más allá del mueble</p>
+          <h2 data-split>Diseñamos espacios <em>para la convivencia.</em></h2>
+        </div>
+        <div class="services__list">
+          <article class="service" data-fade>
+            <h3>Consultoría para hogares</h3>
+            <p>Revisamos la distribución, los recorridos y las zonas de descanso de tu casa pensando en todos los que la habitan.</p>
+          </article>
+          <article class="service" data-fade>
+            <h3>Proyectos pet-friendly</h3>
+            <p>Hoteles, oficinas y constructoras que quieren espacios y amenities para mascotas en sus proyectos.</p>
+          </article>
+          <article class="service" data-fade>
+            <h3>Talleres de convivencia</h3>
+            <p>Encuentros sobre convivencia con mascotas en el hogar, para familias, comunidades y equipos.</p>
+          </article>
+          <article class="service" data-fade>
+            <h3>Ediciones y co-branding</h3>
+            <p>Ediciones limitadas junto a marcas de moda, hotelería y diseño.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- INVITACIÓN FINAL -->
+      <section class="cta" id="contacto">
+        <figure class="cta__cards"><img data-gl src="/assets/cards.webp" alt="Tarjetas DualHome con un perro con gorro de lana y una flor" /></figure>
+        <div class="cta__box">
+          <p class="cta__script">Tu casa no es solo el lugar donde vives.</p>
+          <h2 data-split>También es el lugar donde <em>compartes la vida.</em></h2>
+          <p class="cta__lead">Cuéntanos sobre tu hogar y tu mascota. Te escribimos con nuestros productos, materiales y servicios.</p>
+          <form class="form" data-form novalidate>
+            <label class="form__field">
+              <span>Nombre</span>
+              <input name="name" autocomplete="name" required />
+            </label>
+            <label class="form__field">
+              <span>Correo</span>
+              <input name="email" type="email" autocomplete="email" required />
+            </label>
+            <fieldset class="form__pets">
+              <legend>¿Con quién vives?</legend>
+              <label><input type="checkbox" name="pet" value="perro" /> <span>Perro</span></label>
+              <label><input type="checkbox" name="pet" value="gato" /> <span>Gato</span></label>
+              <label><input type="checkbox" name="pet" value="ambos" /> <span>Ambos</span></label>
+            </fieldset>
+            <button class="btn btn--full" type="submit">Quiero saber más</button>
+            <p class="form__ok" data-form-ok role="status" hidden>Gracias. Te escribiremos pronto.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__big" aria-hidden="true">dualhome</div>
+      <div class="footer__row">
+        <p>Diseñamos para convivir.</p>
+        <p>Medellín, Colombia</p>
+        <p>Daniel Zapata · Gerónimo Quijano</p>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
