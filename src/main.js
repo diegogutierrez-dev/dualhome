@@ -7,6 +7,8 @@ import Lenis from 'lenis';
 import { World } from './gl/world.js';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
+// mobile URL-bar show/hide fires resize while scrolling; don't recalculate triggers for it
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -16,7 +18,9 @@ const isMobile = window.matchMedia('(max-width: 760px), (pointer: coarse)').matc
 document.body.classList.add('is-loading');
 
 /* ---------------- Smooth scroll ---------------- */
-const lenis = reduced ? null : new Lenis({ lerp: 0.085, smoothWheel: true, syncTouch: false });
+// syncTouch drives touch scrolling from the same frame as the WebGL render, so the canvas
+// and the DOM move together instead of the canvas lagging a frame behind native scroll.
+const lenis = reduced ? null : new Lenis({ lerp: 0.085, smoothWheel: true, syncTouch: isMobile, syncTouchLerp: 0.1, touchMultiplier: 1 });
 if (lenis) {
   lenis.stop();
   lenis.on('scroll', ScrollTrigger.update);

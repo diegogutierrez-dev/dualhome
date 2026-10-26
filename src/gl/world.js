@@ -97,11 +97,16 @@ export class World {
   }
 
   resize() {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
+    // Size from the canvas box (100lvh), not innerHeight: on mobile the URL bar
+    // changes innerHeight while scrolling, which re-sized the buffer every frame
+    // and stretched the 100lvh canvas — the source of the shaking.
+    const canvas = this.renderer.domElement;
+    const w = canvas.clientWidth || window.innerWidth;
+    const h = canvas.clientHeight || window.innerHeight;
+    if (w === this.vw && h === this.vh) return;
     this.vw = w;
     this.vh = h;
-    const dpr = Math.min(window.devicePixelRatio || 1, this.isMobile ? 1.5 : 1.75);
+    const dpr = Math.min(window.devicePixelRatio || 1, this.isMobile ? 1.35 : 1.75);
     this.renderer.setPixelRatio(dpr);
     this.renderer.setSize(w, h, false);
     this.camera.aspect = w / h;
@@ -152,8 +157,11 @@ export class World {
       const sTarget = px * this.worldPerPx * this.intro / 1.25;
       const cx = (r.left + r.width / 2 - this.vw / 2) * this.worldPerPx;
       const cy = -(r.top + r.height / 2 - this.vh / 2) * this.worldPerPx;
-      c.x = damp(c.x, cx, Math.min(1, k * 1.6));
-      c.y = damp(c.y, cy, Math.min(1, k * 1.6));
+      // On touch the page scrolls in sync with this frame (Lenis syncTouch), so follow the
+      // anchor exactly; easing it there made the piece trail and wobble behind the content.
+      const follow = this.isMobile ? 1 : Math.min(1, k * 1.6);
+      c.x = damp(c.x, cx, follow);
+      c.y = damp(c.y, cy, follow);
       c.s = damp(c.s, sTarget, k);
       for (const key of ['rotY', 'tilt', 'explode', 'glow', 'dog']) c[key] = damp(c[key], t[key], k);
     } else {
@@ -178,7 +186,7 @@ export class World {
       sc.updateProjectionMatrix();
     }
 
-    this.media.update(this.time, this.vel, this.vw, this.vh);
+    this.media.update(this.time, this.isMobile ? 0 : this.vel, this.vw, this.vh);
 
     const r = this.renderer;
     r.clear();
