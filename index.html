@@ -103,7 +103,7 @@
             <article class="pstep" data-pstep="0">
               <p class="eyebrow">Mobiliario para convivir</p>
               <h2>Un mueble, <em>dos habitantes.</em></h2>
-              <p>A primera vista es un mueble más de la sala: tapizado, base de madera, buenas proporciones. Así debe verse.</p>
+              <p>A primera vista es un mueble más de la sala: tapizado, base de madera, buenas proporciones. Así debe verse. Arrástralo para girarlo.</p>
             </article>
             <article class="pstep" data-pstep="1">
               <p class="eyebrow">Para ti</p>
@@ -121,7 +121,12 @@
               <p>Nuestras piezas se desmontan: cada parte se puede reparar o reemplazar sin desechar el mueble completo.</p>
             </article>
           </div>
-          <div class="product__progress" aria-hidden="true"><span data-product-bar></span></div>
+          <div class="product__tabs" role="tablist" aria-label="Partes del mueble">
+            <button class="ptab" role="tab" aria-selected="true" data-ptab="0">El mueble<span></span></button>
+            <button class="ptab" role="tab" aria-selected="false" data-ptab="1">Para ti<span></span></button>
+            <button class="ptab" role="tab" aria-selected="false" data-ptab="2">Para tu mascota<span></span></button>
+            <button class="ptab" role="tab" aria-selected="false" data-ptab="3">Se repara<span></span></button>
+          </div>
         </div>
       </section>
 

@@ -167,10 +167,6 @@ function initAnimations() {
     });
   });
 
-  // manifesto dogs drift (parallax)
-  gsap.to('.manifesto__dog--a', { yPercent: -18, ease: 'none', scrollTrigger: { trigger: '.manifesto', scrub: true } });
-  gsap.to('.manifesto__dog--b', { yPercent: 14, ease: 'none', scrollTrigger: { trigger: '.manifesto', scrub: true } });
-  gsap.to('.hero__blob', { yPercent: 30, scale: 1.1, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
 
   homesGrid();
   productStory();
@@ -180,7 +176,7 @@ function initAnimations() {
   form();
   links();
 
-  gsap.from('.footer__big', { yPercent: 40, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.footer', start: 'top bottom', end: 'bottom bottom', scrub: true } });
+  gsap.from('.footer__big', { yPercent: 30, opacity: 0, duration: 1.6, ease: 'expo.out', scrollTrigger: { trigger: '.footer', start: 'top 85%' } });
   ScrollTrigger.refresh();
 }
 
@@ -206,34 +202,64 @@ function homesGrid() {
     .fromTo(dots, { scale: 0.2 }, { scale: 0.7, duration: 0.8, ease: 'back.out(3)', stagger: { each: 0.01, grid: [5, 20], from: 'start' } }, 0);
 }
 
+// Steps advance on their own while the section is on screen, or by tapping a tab.
+// Nothing here is tied to scroll position.
 function productStory() {
   const steps = $$('[data-pstep]');
+  const tabs = $$('[data-ptab]');
   const s = world?.story ?? {};
+  const states = [
+    { rotY: Math.PI - 0.95, tilt: 0.34, glow: 0, dog: 0, explode: 0 },
+    { rotY: Math.PI * 0.5 + 0.2, tilt: 0.42, glow: 0, dog: 0, explode: 0 },
+    { rotY: 0.26, tilt: 0.14, glow: 1, dog: 1, explode: 0 },
+    { rotY: 0.85, tilt: 0.3, glow: 1, dog: 0, explode: 1 },
+  ];
+  const STEP_TIME = 6;
+  let current = 0;
+  let inView = false;
+  let timer = null;
+
+  gsap.set(steps, { autoAlpha: 0 });
   gsap.set(steps[0], { autoAlpha: 1 });
-  const tl = gsap.timeline({
-    defaults: { ease: 'power2.inOut' },
-    scrollTrigger: { trigger: '.product', start: 'top top', end: 'bottom bottom', scrub: 1.2 },
-  });
-  const show = (i, at) => {
-    tl.to(steps[i - 1], { autoAlpha: 0, y: -30, duration: 0.25 }, at);
-    tl.fromTo(steps[i], { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.3 }, at + 0.2);
+
+  const runTimer = () => {
+    timer?.kill();
+    tabs.forEach((t) => gsap.set(t.querySelector('span'), { scaleX: 0 }));
+    timer = gsap.to(tabs[current].querySelector('span'), {
+      scaleX: 1,
+      duration: STEP_TIME,
+      ease: 'none',
+      paused: !inView || reduced,
+      onComplete: () => goTo((current + 1) % steps.length),
+    });
   };
-  // 0 → conventional puf seen from the back
-  tl.to(s, { rotY: Math.PI - 0.95, tilt: 0.34, duration: 1 }, 0);
-  // 1 → human zone: lower angle, cushion focus
-  show(1, 0.9);
-  tl.to(s, { rotY: Math.PI * 0.5 + 0.2, tilt: 0.42, duration: 1 }, 1);
-  // 2 → WOW: turn to the arch, light the refuge, the dog appears
-  show(2, 1.9);
-  tl.to(s, { rotY: 0.26, tilt: 0.14, duration: 1.2 }, 2);
-  tl.to(s, { glow: 1, duration: 0.5 }, 2.6);
-  tl.to(s, { dog: 1, duration: 0.6, ease: 'back.out(1.6)' }, 2.7);
-  // 3 → exploded / repairable
-  show(3, 3.4);
-  tl.to(s, { explode: 1, rotY: 0.85, tilt: 0.3, duration: 1, ease: 'power3.inOut' }, 3.5);
-  tl.to(s, { dog: 0, duration: 0.3 }, 3.5);
-  tl.to({}, { duration: 0.4 }, 4.5);
-  tl.to('[data-product-bar]', { scaleX: 1, ease: 'none', duration: tl.duration() }, 0);
+
+  const goTo = (i) => {
+    if (i !== current) {
+      gsap.to(steps[current], { autoAlpha: 0, y: -24, duration: 0.45, ease: 'power2.in', overwrite: true });
+      gsap.fromTo(steps[i], { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.8, delay: 0.35, ease: 'expo.out', overwrite: true });
+      current = i;
+    }
+    tabs.forEach((t, k) => t.setAttribute('aria-selected', k === i));
+    const st = states[i];
+    gsap.to(s, { rotY: st.rotY, tilt: st.tilt, explode: st.explode, duration: 1.6, ease: 'power3.inOut', overwrite: 'auto' });
+    gsap.to(s, { glow: st.glow, duration: 0.8, delay: st.glow ? 0.9 : 0, ease: 'power2.out', overwrite: 'auto' });
+    gsap.to(s, { dog: st.dog, duration: st.dog ? 0.7 : 0.3, delay: st.dog ? 1.1 : 0, ease: st.dog ? 'back.out(1.6)' : 'power2.in', overwrite: 'auto' });
+    runTimer();
+  };
+
+  tabs.forEach((t, i) => t.addEventListener('click', () => goTo(i)));
+  ScrollTrigger.create({
+    trigger: '.product',
+    start: 'top 60%',
+    end: 'bottom 40%',
+    onToggle: (self) => {
+      inView = self.isActive;
+      if (!timer || reduced) return;
+      inView ? timer.resume() : timer.pause();
+    },
+  });
+  goTo(0);
 }
 
 function configurator() {
